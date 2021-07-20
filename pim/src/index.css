@@ -27,3 +27,11 @@ code {
 h2{
   color:white;
 }
+.loginpic{
+	background-image: url('./img/Login.svg');
+	background-size:contain;
+	background-repeat: no-repeat;
+	height: 200px;
+	width: 200px;
+	padding: 200px;
+}
