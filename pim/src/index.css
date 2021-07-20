@@ -5,9 +5,25 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url('./img/Website\ BG.jpg') no-repeat;
+  background-position: right;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.teal-outline{
+  color: rgb(175, 175, 175);
+  background-color: rgba(16, 130, 128,0.5);
+}
+.teal-outline:hover{
+  background-color: #108280;
+  color: white;
+}
+h2{
+  color:white;
 }
