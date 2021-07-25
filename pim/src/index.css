@@ -36,6 +36,11 @@ h2{
 	width: 200px;
 	padding: 200px;
 }
+.form-box{
+	border: 3px solid #000000;
+	margin: 5px;
+	padding: 10px;
+}
 
 .page{
   position: relative;
@@ -84,4 +89,9 @@ h2{
   opacity: 0;
 	transition: opacity 0.35s, transform 0.35s;
 	transform: scale(0,1);
+  height: 94vh;
+}
+.tag{
+	padding: 100em, 100em;
+	font-size: 1em;
 }

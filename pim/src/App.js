@@ -2,7 +2,9 @@
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Register from './components/Register';
-import Login from './components/Login'
+import Login from './components/Login';
+import NewNote from './components/NewNote';
+import Note from './components/Note'
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 import Search from "./components/Search";
@@ -29,6 +31,8 @@ function App() {
     <Route path='/register' component={Register}/>
     <Route path='/tags/:id' component={Hashtag}/>
     <Route path='/tags' exact component={AllTags}/>
+	<Route path='/add' component={NewNote}/>
+	<Route path='/note/:id' component={Note}/>
     <Route path='/search' render={(props)=>(
       <>
         <Search searchfunc={search}></Search>
@@ -36,6 +40,7 @@ function App() {
     )}/>
     <Footer></Footer>
     </Router>
+
     </div>
   );
 }
