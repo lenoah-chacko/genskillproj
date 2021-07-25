@@ -31,7 +31,7 @@ const Login= () => {
 
     return (
 
-			<div className="container mt-5 page">
+			<div className="container mt-5">
 				<h2 className="header">Login</h2>
 				<div className="row">
 					<div className="col-6">
@@ -51,16 +51,13 @@ const Login= () => {
 			                    </div>
 			                </div>
 
-			                <div className="ml-1 form-row">
-								<div className="col-8">
-								  	<button type="submit" onClick={onClick} className="btn btn-info col-2 btn-sm">Sign in</button>
-				                    <button type="button" className="col-2 btn offset-1 btn-secondary btn-sm">Cancel</button>
-								</div>
-			                </div>
+			                <div className="form-row">
+								  	<button type="submit" onClick={onClick} className="btn btn-info col-8 mt-3 btn-sm">Sign in</button>
+							</div>
 		            	</form>
 					</div>
 					<div className="mt-4 col-6">
-						<div className="img-fluid" className="loginpic" />
+						<div className="img-fluid loginpic"/>
 					</div>
 				</div>
 

@@ -23,7 +23,7 @@ export default function Search({searchfunc}) {
                     </div>
                     <div className="md-col-6 sm-col-2"></div>
                     </div>
-                            <h2 class="text-center">Search results</h2>
+                            <h2 className="text-center">Search results</h2>
                             {Notes.map(note=>(<NoteView Title={note.Title} DateCreated={note.DateCreated}></NoteView>))}
                     </div>
                 </div>

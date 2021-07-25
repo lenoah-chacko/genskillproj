@@ -1,7 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
+import { useHistory } from "react-router-dom";
 
 const NewNote= () => {
+	let history = useHistory();
 
 	const [showTitleWarning, setShowTitleWarning] = useState(false);
 	const [showDescriptionWarning, setShowDescriptionWarning] = useState(false);
@@ -37,7 +39,7 @@ const NewNote= () => {
 	function onClick(event){
 		event.preventDefault()
 		var arr;
-		if(valueHashTag!='')
+		if(valueHashTag!=='')
 		{
 			 arr=csvtoarr(valueHashTag)
 
@@ -60,15 +62,15 @@ const NewNote= () => {
 	}
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-5 page">
 			<div className="row justify-content-center">
 				<div className="col-12 col-md-6">
 					<form className="form-box">
 						<div className="form-row">
 							<div className="col-6 col-md-2">
-								<a className="nav-link" style={{color:'black'}} href="#">
+							<div className="btn" style={{color:'black'}} onClick={() => history.goBack()}>
 									<span className="fa fa-arrow-left fa-lg"></span>
-								</a>
+								</div>
 							</div>
 							<div className="col-6 col-md-4 offset-2">
 								<h2 style={{color:'black'}}>New Note</h2>

@@ -27,7 +27,14 @@ export default function Home({searchfunc}) {
                     </div>
                     <div className="md-col-6 sm-col-2"></div>
                     </div>
-                            <h2 class="text-center">Your Notes</h2>
+                            <h2 className="text-center">
+                                Your Notes
+                                <Link to='/add'>
+                                    <div class="wrapper">
+                                        <i className="fa fa-plus ml-2 text-light plus-grow"></i>
+                                    </div>
+                                </Link>
+                            </h2>
                             {Notes.map(note=>(<NoteView Title={note.Title} DateCreated={note.DateCreated}></NoteView>))}
                     </div>
             </div>

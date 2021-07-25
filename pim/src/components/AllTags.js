@@ -21,11 +21,11 @@ export default function AllTags() {
                     <div className="md-col-6 sm-col-2"></div>
                     </div>
                     <div>
-                            <h2 className="text-center">Tags</h2>
+                            <h2 className="text-center"><u>Tags</u></h2>
                             <div className="text-light">
                                     <div className="row row-cols-1 row-cols-md-2 g-4 text-center">
                                 {Tags.map(tag=>(
-                                    <Link to={"/tag/"+tag.name}>
+                                    <Link to={"/tags/"+tag.name}>
                                     <h3 className="text-light hov mt-4" key={tag.id}>{tag.name}</h3>
                                     </Link>
                                 ))}

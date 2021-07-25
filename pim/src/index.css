@@ -89,9 +89,21 @@ h2{
   opacity: 0;
 	transition: opacity 0.35s, transform 0.35s;
 	transform: scale(0,1);
-  height: 94vh;
 }
 .tag{
 	padding: 100em, 100em;
 	font-size: 1em;
+}
+.wrapper{
+  display: inline-block;
+}
+.plus-grow{
+  height: 1em;
+  width: 1em;
+  cursor: pointer;
+  font-size: 1em;
+  border: none;
+}
+.plus-grow:hover{
+  border: 1px solid white;
 }
