@@ -1,14 +1,19 @@
 import NoteView from "./NoteView"
 import { Link } from "react-router-dom"
+import { useState,useEffect } from 'react'
 
-export default function Home({searchfunc}) {
-    
-    let Notes=[{Title:"Calling my Wife", DateCreated:"01/12/2018"},
-    {Title:"Calling my Girlfriend", DateCreated: "12/04/2019"},
-    {Title:"Calling my Ex Wife", DateCreated: "18/06/2019"},
-    {Title:"Calling my Ex Girlfriend", DateCreated: "18/06/2020"},
-    {Title:"Calling my Homie", DateCreated: "23/06/2020"},
-    {Title:"Calling my Husband", DateCreated: "26/06/2020"}]
+export default function Home({searchfunc,Notes, setKeyWord}) {
+
+	const [allNotes,setAllNotes]=useState([])
+    useEffect(() => {
+        setAllNotes(Notes)
+    },[Notes])
+	const searchOnChange=(e)=>
+	{
+		setKeyWord(e.target.value);
+	}
+
+
     return (
         <div className="homebg page">
             <div className="container pt-4 pb-5">
@@ -17,10 +22,10 @@ export default function Home({searchfunc}) {
                     <div className="col-2"></div>
                     <div id="searchbar"className="md-col-4 sm-col-8">
                         <div className="input-group mb-3">
-                        <input id="search" type="text" className="form-control" placeholder="Search Notes"/>
+                        <input id="search" type="text" className="form-control" onChange={searchOnChange} placeholder="Search Notes"/>
                             <div className="input-1-append">
                                 <Link to='/search'>
-                                <button className="btn btn-outline-secondary teal-outline" type="submit" onClick={searchfunc}>Search</button>
+                                <button className="btn btn-outline-secondary teal-outline" type="submit" onClick={(e)=>searchfunc(e)}>Search</button>
                                 </Link>
                             </div>
                         </div>
@@ -30,12 +35,17 @@ export default function Home({searchfunc}) {
                             <h2 className="text-center">
                                 Your Notes
                                 <Link to='/add'>
-                                    <div class="wrapper">
+                                    <div className="wrapper">
                                         <i className="fa fa-plus ml-2 text-light plus-grow"></i>
                                     </div>
                                 </Link>
                             </h2>
-                            {Notes.map(note=>(<NoteView Title={note.Title} DateCreated={note.DateCreated}></NoteView>))}
+                            {allNotes.map(note=>(
+								<Link to={'/note/'+note.id} style={{ textDecoration: 'none' }}>
+									<NoteView key={note.id} Title={note.Title} DateCreated={note.DateCreated}>
+									</NoteView>
+								</Link>
+							))}
                     </div>
             </div>
         </div>
