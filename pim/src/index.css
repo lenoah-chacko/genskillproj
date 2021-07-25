@@ -20,3 +20,9 @@ code {
 	width: 200px;
 	padding: 200px;
 }
+.form-box{
+	border: 3px solid #000000;
+	margin: 5px;
+	padding: 10px;
+
+}

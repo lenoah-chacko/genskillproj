@@ -1,13 +1,14 @@
 
 import Navbar from "./components/Navbar";
 import Register from './components/Register';
-import Login from './components/Login'
+import Login from './components/Login';
+import NewTask from './components/NewTask';
 
 function App() {
   return (
     <div className="App">
       <Navbar></Navbar>
-	  <Register/>
+	  <NewTask/>
     </div>
   );
 }
