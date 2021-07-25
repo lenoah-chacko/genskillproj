@@ -28,7 +28,7 @@ const Register= () => {
 
 
 	function onClick(event){
-		if(valueEmail==''|| valuePassword=='' || valueUsername=='')
+		if(valueEmail===''|| valuePassword==='' || valueUsername==='')
 		{
 			event.preventDefault()
 			setShowPassWarning(true)
@@ -49,19 +49,19 @@ const Register= () => {
 									<label className="col-3 col-form-label" htmlFor="name">Username</label>
 									<input type="text" className="col-8 form-control " name="name" id="name"
 									value={valueUsername} onChange={handleChangeUsername} placeholder="Enter Name"></input>
-									{(valueUsername==''&&showUsernameWarning)&&<span className="text-danger">Please enter valid username</span>}
+									{(valueUsername===''&&showUsernameWarning)&&<span className="text-danger">Please enter valid username</span>}
 								</div>
 			                    <div className="col-12 form-group">
 			                        <label className="col-3 col-form-label" htmlFor="uname">Email address</label>
 			                        <input type="email" className="col-8 form-control " name="uname" id="uname"
 									value={valueEmail} onChange={handleChangeEmail} placeholder="Enter Email"></input>
-									{(valueEmail==''&&showEmailWarning)&&<span className="text-danger">Please enter valid password</span>}
+									{(valueEmail===''&&showEmailWarning)&&<span className="text-danger">Please enter valid password</span>}
 			                    </div>
 			                    <div className="col-12 form-group">
 			                        <label className="col-3 col-form-label" htmlFor="pwd">Password</label>
 			                        <input type="password" className="col-8 form-control mr-1" name="pwd" id="pwd"
 									value={valuePassword} onChange={handleChangePassword} placeholder="Enter Password"></input>
-									{(valuePassword==''&&showPassWarning)&&<span className="text-danger">Please enter valid password</span>}
+									{(valuePassword===''&&showPassWarning)&&<span className="text-danger">Please enter valid password</span>}
 			                    </div>
 			                </div>
 

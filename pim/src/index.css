@@ -12,6 +12,17 @@ code {
     monospace;
 }
 
+.teal-outline{
+  color: rgb(175, 175, 175);
+  background-color: rgba(16, 130, 128,0.5);
+}
+.teal-outline:hover{
+  background-color: #108280;
+  color: white;
+}
+h2{
+  color:white;
+}
 .loginpic{
 	background-image: url('./img/Login.svg');
 	background-size:contain;
@@ -24,5 +35,16 @@ code {
 	border: 3px solid #000000;
 	margin: 5px;
 	padding: 10px;
+}
 
+.homebg{
+  background: url('./img/Website\ BG.jpg') no-repeat;
+  background-position: right;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 94vh;
+}
+.tag{
+	padding: 100em, 100em;
+	font-size: 1em;
 }
