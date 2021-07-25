@@ -5,10 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url('./img/Website\ BG.jpg') no-repeat;
-  background-position: right;
-  background-size: cover;
-  background-attachment: fixed;
 }
 
 code {
@@ -34,4 +30,12 @@ h2{
 	height: 200px;
 	width: 200px;
 	padding: 200px;
+}
+
+.homebg{
+  background: url('./img/Website\ BG.jpg') no-repeat;
+  background-position: right;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 94vh;
 }
