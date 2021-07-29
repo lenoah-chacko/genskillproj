@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
-import { useHistory } from "react-router-dom";
+import { useHistory,Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 
 
-const Note = ({Notes}) => {
+const Note = ({Notes,setNotes,setEditValue,editValue}) => {
 
 	// console.log(Notes)
 	let history = useHistory();
@@ -34,21 +34,59 @@ const Note = ({Notes}) => {
 		findnote(Notes)
 	},[id,Notes])
 
+
+	const deleteNote=()=>
+	{
+		console.log('deleting note '+id);
+		for(let i=0;i<Notes.length;i++)
+		{
+			if(Notes[i].id==id)
+			{
+				let n=Notes;
+				n.splice(i,1)
+				setNotes(n);
+
+			}
+		}
+	}
+	const editNote=(e)=>
+	{
+		console.log('Editing note '+id);
+		for(let i=0;i<Notes.length;i++)
+		{
+			if(Notes[i].id==id)
+			{
+				console.log(Notes[i]);
+				setEditValue(Notes[i]);
+				console.log(editValue);
+			}
+		}
+	}
+
+
+
     return (
 <div className="container mt-5 page">
 	<div className="row justify-content-center">
 		<div className="card form-box" style={{width: '35vw'}}>
 			<div className="card-body">
 				<div className="row">
-					<div className="col-6 col-md-2">
+					<div className="col-5 col-md-2">
 						<div className="btn" style={{color:'black'}} onClick={() => history.goBack()}>
 						 <span className="fa fa-arrow-left fa-lg"></span>
 						</div>
 					</div>
-					<div className="col-6 col-md-8">
+					<div className="col-5 col-md-8">
 						<h3 className="card-title mx-auto text-center">{note.Title}</h3>
 					</div>
-				</div>
+					<div className="col-2 col-md-2">
+						<div onClick={editNote}>
+							<Link to={'/edit'} style={{ color:'black',textDecoration: 'none' }}>
+							<span className="fa fa-edit fa-lg mt-3" style={{cursor:'pointer'}}></span>
+							</Link>
+						</div>
+					</div>
+					</div>
 						<h6 className="card-subtitle mb-2 text-muted">
 							<div className="d-flex justify-content-center">
 								{note.Tags.map((tag,index)=>(
@@ -58,6 +96,13 @@ const Note = ({Notes}) => {
 						</h6>
 				<hr></hr>
 				<p className="card-text mt-3">{note.Description}</p>
+			</div>
+			<div className="row">
+				<div className="offset-10 col-2 ml-auto" onClick={deleteNote}>
+					<Link to={'/'} style={{ color:'black',textDecoration: 'none' }}>
+					<span className="fa fa-trash fa-lg mt-3" style={{cursor:'pointer'}}></span>
+					</Link>
+				</div>
 			</div>
 		</div>
 	</div>

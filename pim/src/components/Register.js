@@ -30,7 +30,7 @@ const Register= ({user}) => {
 	useEffect(() => {
 		if(!!user)
 			history.push('/home')
-	}, [user])
+	}, [user,history])
 
 	function onClick(event){
 		if(valueEmail===''|| valuePassword==='' || valueUsername==='')
