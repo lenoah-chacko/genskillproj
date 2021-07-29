@@ -1,8 +1,9 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
+import { useHistory } from 'react-router-dom';
 
-const Login= () => {
-
+const Login= ({user,tweakUser}) => {
+	const history = useHistory();
 	const [showPassWarning, setShowPassWarning] = useState(false);
 	const [showEmailWarning, setShowEmailWarning] = useState(false);
 
@@ -18,14 +19,41 @@ const Login= () => {
 		setValuePassword(event.target.value);
 		setShowPassWarning(false)
 	};
+	
+	useEffect(() => {
+		if(!!user)
+			history.push('/home')
+	}, [user])
 
 
 	function onClick(event){
+		event.preventDefault()
 		if(valueEmail===''|| valuePassword==='')
 		{
-			event.preventDefault()
 			setShowPassWarning(true)
 			setShowEmailWarning(true)
+		}
+		else{
+			Login()
+		}
+	}
+	async function Login() {
+		var request={'username':valueEmail,'password':valuePassword}
+		// GET request using fetch with async/await
+		const response = await fetch('/login', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		console.log(data)
+		if (!('message' in data))
+		{
+			localStorage.setItem('userID', data[0]);
+			tweakUser(localStorage.getItem('userID'));
+			history.push('/home');
 		}
 	}
 

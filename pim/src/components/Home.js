@@ -41,7 +41,7 @@ export default function Home({searchfunc,Notes, setKeyWord}) {
                                 </Link>
                             </h2>
                             {allNotes.map(note=>(
-								<Link to={'/note/'+note.id} style={{ textDecoration: 'none' }}>
+								<Link to={'/note/'+note.id} key={note.id} style={{ textDecoration: 'none' }}>
 									<NoteView key={note.id} Title={note.Title} DateCreated={note.DateCreated}>
 									</NoteView>
 								</Link>

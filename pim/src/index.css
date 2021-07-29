@@ -120,3 +120,11 @@ h2{
 .plus-grow:hover{
   border: 1px solid white;
 }
+
+#notfound{
+  background-image: url('./img/404.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 292px;
+  width: 537px;
+}

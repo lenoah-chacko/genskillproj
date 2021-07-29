@@ -1,8 +1,9 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
+import { useHistory } from 'react-router-dom';
 
-const Register= () => {
-
+const Register= ({user}) => {
+	const history=useHistory();
 	const [showUsernameWarning, setShowUsernameWarning] = useState(false);
 	const [showPassWarning, setShowPassWarning] = useState(false);
 	const [showEmailWarning, setShowEmailWarning] = useState(false);
@@ -26,6 +27,10 @@ const Register= () => {
 		setShowPassWarning(false)
 	};
 
+	useEffect(() => {
+		if(!!user)
+			history.push('/home')
+	}, [user])
 
 	function onClick(event){
 		if(valueEmail===''|| valuePassword==='' || valueUsername==='')

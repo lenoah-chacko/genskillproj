@@ -19,10 +19,8 @@ const Note = ({Notes}) => {
 		Description:'',
 	})
 
-
-
 	useEffect(() => {
-		console.log(Notes,id)
+		//console.log(Notes,id)
 	const findnote =(Notes)=>{
 			for(var i=0;i<Notes.length;i=i+1)
 			{
@@ -34,7 +32,6 @@ const Note = ({Notes}) => {
 			}
 		}
 		findnote(Notes)
-
 	},[id,Notes])
 
     return (

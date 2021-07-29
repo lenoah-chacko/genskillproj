@@ -61,6 +61,12 @@ const NewNote= () => {
 
 	}
 
+	async function postNote()
+	{
+		fetch()
+	}
+
+
     return (
         <div className="container mt-5 page">
 			<div className="row justify-content-center">
