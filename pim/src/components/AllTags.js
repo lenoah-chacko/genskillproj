@@ -1,17 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useEffect} from 'react'
 
-export default function AllTags() {
-    let Tags=[
-        {id:1, name:"Math"},
-        {id:2, name:"Family"},
-        {id:3, name:"Chemistry"},
-        {id:4, name:"Friend"},
-        {id:5, name:"Prize"},
-        {id:6, name:"Tragedy"},
-        {id:7, name:"Birthday"},
-        {id:8, name:"Deep thoughts"},
-    ]
+export default function AllTags({Tags,setHashTag,searchfunc}) {
+
+
+	const onClick=(e)=>
+	{
+		setHashTag(e.target.id)
+	}
+	useEffect(() => {
+	    setHashTag('');
+
+		})
     return (
         <div className="homebg page">
             <div className="container pt-4 pb-5">
@@ -26,8 +27,9 @@ export default function AllTags() {
                                     <div className="row row-cols-1 row-cols-md-2 g-4 text-center">
                                 {Tags.map(tag=>(
                                     <Link to={"/tags/"+tag.name}>
-                                    <h3 className="text-light hov mt-4" key={tag.id}>{tag.name}</h3>
+                                    	<h3 onClick={onClick} id={tag.name} className="text-light hov mt-4" key={tag.id}>{tag.name}</h3>
                                     </Link>
+
                                 ))}
                                 </div>
                             </div>

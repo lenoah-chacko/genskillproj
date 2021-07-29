@@ -1,8 +1,8 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 
-const NewNote= ({setNotes,Notes,addTags,setAddTags}) => {
+const NewNote= ({Value,setNotes,Notes,addTags,setAddTags}) => {
 	let history = useHistory();
 
 	const [showTitleWarning, setShowTitleWarning] = useState(false);
@@ -12,6 +12,34 @@ const NewNote= ({setNotes,Notes,addTags,setAddTags}) => {
 	const [valueTitle, setValueTitle] = useState('');
 	const [valueHashTag, setValueHashTag] = useState('');
 	const [valueDescription, setValueDescription] = useState('');
+
+	const arrtocsv=(arr)=>{
+		let str='';
+		let i=0;
+		for(;i<(arr.length-1);i++)
+		{
+			str+=arr[i]+',';
+		}
+		str+=arr[i];
+		return str;
+	}
+
+	useEffect(()=>{
+
+
+
+
+		setValueTitle(Value.Title);
+		setValueDescription(Value.Description);
+		// console.log(Value.Tags);
+		let str=''
+		str=arrtocsv(Value.Tags);
+		// console.log(str);
+		setValueHashTag(str);
+	},[])
+
+
+
 	const handleChangeTitle = (event) => {
 		setValueTitle(event.target.value);
 		setShowTitleWarning(false)
@@ -53,7 +81,20 @@ const NewNote= ({setNotes,Notes,addTags,setAddTags}) => {
 		}
 		else{
 			console.log(arr);
-			setNotes([...Notes,{id:9,Title:valueTitle,Tags:arr,Description:valueDescription}])
+			let NotesNew=Notes
+			console.log(Value.id-1)
+			for(let i=0;i<Notes.length;i++)
+			{
+				if(NotesNew[i].id==Value.id)
+				{
+					NotesNew[i].Title=valueTitle;
+					NotesNew[i].Tags=arr;
+					NotesNew[i].Description=valueDescription;
+					console.log(NotesNew);
+					setNotes(NotesNew)
+					break;
+				}
+			}
 			let flag=1;
 
 			for(let i=0;i<arr.length;i++)
@@ -75,16 +116,17 @@ const NewNote= ({setNotes,Notes,addTags,setAddTags}) => {
 					flag=1;
 				}
 			}
-			history.goBack();
-		}
-}
 
+
+			 history.goBack()
+
+		}
+
+}
 	function onClear(event){
 		setValueTitle('')
 		setValueHashTag('')
 		setValueDescription('')
-
-
 	}
 
     return (
