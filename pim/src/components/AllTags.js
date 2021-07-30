@@ -2,12 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useEffect} from 'react'
 
-export default function AllTags({Tags,setHashTag,searchfunc}) {
+export default function AllTags({Tags,setHashTag,searchfunc,hashTag}) {
 
 
 	const onClick=(e)=>
 	{
-		setHashTag(e.target.id)
+		// e.preventDefault();
+		console.log(e.target.id)
+		setHashTag(e.target.id);
 	}
 	useEffect(() => {
 	    setHashTag('');
@@ -26,8 +28,8 @@ export default function AllTags({Tags,setHashTag,searchfunc}) {
                             <div className="text-light">
                                     <div className="row row-cols-1 row-cols-md-2 g-4 text-center">
                                 {Tags.map(tag=>(
-                                    <Link to={"/tags/"+tag.name}>
-                                    	<h3 onClick={onClick} id={tag.name} className="text-light hov mt-4" key={tag.id}>{tag.name}</h3>
+                                    <Link to={"/tags/"+tag.hashtag}>
+                                    	<h3 onClick={onClick} id={tag.hashtag} className="text-light hov mt-4" key={tag.hashtagid}>{tag.hashtag}</h3>
                                     </Link>
 
                                 ))}

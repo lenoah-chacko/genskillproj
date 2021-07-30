@@ -2,10 +2,13 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 
-const Login= ({user,tweakUser}) => {
+const Login= ({user,tweakUser,setName}) => {
 	const history = useHistory();
 	const [showPassWarning, setShowPassWarning] = useState(false);
 	const [showEmailWarning, setShowEmailWarning] = useState(false);
+
+	const [invalidEmail, setInvalidEmail] = useState(false);
+	const [invalidPassword, setInvalidPassword] = useState(false);
 
 	const [valueEmail, setValueEmail] = useState('');
 	const handleChangeEmail = (event) => {
@@ -19,7 +22,7 @@ const Login= ({user,tweakUser}) => {
 		setValuePassword(event.target.value);
 		setShowPassWarning(false)
 	};
-	
+
 	useEffect(() => {
 		if(!!user)
 			history.push('/home')
@@ -51,14 +54,26 @@ const Login= ({user,tweakUser}) => {
 		console.log(data)
 		if (!('message' in data))
 		{
-			localStorage.setItem('userID', data[0]);
+			localStorage.setItem('userID', data['id']);
 			tweakUser(localStorage.getItem('userID'));
+			setName(data.name);
+
 			history.push('/home');
+		}
+		else if(data.message=='Incorrect password')
+		{
+			// alert('Incorrect Password!')
+			setInvalidPassword(true);
+		}
+		else
+		{
+			// alert('Incorrect Username/Password!')
+			setInvalidPassword(true);
+			// setInvalidEmail(true);
 		}
 	}
 
     return (
-
 			<div className="container mt-5">
 				<h2 className="header">Login</h2>
 				<div className="row">
@@ -80,7 +95,15 @@ const Login= ({user,tweakUser}) => {
 			                </div>
 
 			                <div className="form-row">
-								  	<button type="submit" onClick={onClick} className="btn btn-info col-8 mt-3 btn-sm">Sign in</button>
+								{invalidEmail&& <div className="alert alert-danger" role="alert">
+		  							'Incorrect Email!'
+								</div>}
+								{invalidPassword&& <div className="alert alert-sm alert-danger" role="alert">
+									<span className="fa fa-exclamation-triangle fa-lg" style={{'color':'red'}}>
+									</span>
+		  							 Incorrect Email/Password!
+								</div>}
+						  	<button type="submit" onClick={onClick} className="btn btn-info col-8 mt-3 btn-sm">Sign in</button>
 							</div>
 		            	</form>
 					</div>

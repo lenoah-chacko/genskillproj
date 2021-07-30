@@ -2,8 +2,15 @@ import React from 'react'
 import { useState } from 'react'
 import { useHistory } from "react-router-dom";
 
-const NewNote= ({setNotes,Notes,addTags,setAddTags}) => {
+
+
+const NewNote= ({user, setNotes,Notes,addTags,setAddTags}) => {
 	let history = useHistory();
+
+
+
+
+
 
 	const [showTitleWarning, setShowTitleWarning] = useState(false);
 	const [showDescriptionWarning, setShowDescriptionWarning] = useState(false);
@@ -36,9 +43,10 @@ const NewNote= ({setNotes,Notes,addTags,setAddTags}) => {
 			arr2=arr2.map(word=>word.trim())
 			return arr2
 	}
+	let arr;
 	function onClick(event){
 		event.preventDefault()
-		var arr;
+
 		if(valueHashTag!=='')
 		{
 			 arr=csvtoarr(valueHashTag)
@@ -53,7 +61,9 @@ const NewNote= ({setNotes,Notes,addTags,setAddTags}) => {
 		}
 		else{
 			console.log(arr);
-			setNotes([...Notes,{id:9,Title:valueTitle,Tags:arr,Description:valueDescription}])
+			postNotes();
+
+
 			let flag=1;
 
 			for(let i=0;i<arr.length;i++)
@@ -75,6 +85,7 @@ const NewNote= ({setNotes,Notes,addTags,setAddTags}) => {
 					flag=1;
 				}
 			}
+
 			history.goBack();
 		}
 }
@@ -87,10 +98,25 @@ const NewNote= ({setNotes,Notes,addTags,setAddTags}) => {
 
 	}
 
-	async function postNote()
+	async function postNotes()
 	{
-		fetch()
+		console.log('user', user);
+		var request={'id':user,'title':valueTitle, 'description':valueDescription, 'hashtags':valueHashTag}
+		const response = await fetch('/fillnote', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		console.log(data);
+
+		console.log('yoyoyoyoyoo',{notesid:data.id,title:valueTitle,hashtags:arr,description:valueDescription,date:data.date})
+		setNotes([...Notes,{notesid:data.id,title:valueTitle,hashtags:arr,description:valueDescription,date:data.date}])
 	}
+
+
 
 
     return (

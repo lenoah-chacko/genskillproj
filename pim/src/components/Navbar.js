@@ -1,5 +1,5 @@
 import { Link, useHistory } from "react-router-dom"
-export default function Navbar({user, tweakUser}) {
+export default function Navbar({user,name, tweakUser}) {
   const history=useHistory();
   function logout(){
     window.localStorage.removeItem('userID')
@@ -39,8 +39,12 @@ export default function Navbar({user, tweakUser}) {
 	}
 	{
 		!!user&&
-      <div className="nav-link" style={{'cursor' : 'pointer'}} onClick={logout}>Logout</div>
+      <div className="nav-link" style={{'cursor' : 'default'}}>Hi, {name}</div>
 	 }
+	 {
+ 		!!user&&
+       <div className="nav-link" style={{'cursor' : 'pointer'}} onClick={logout}>Logout</div>
+ 	 }
     </ul>
   </div>
 </nav>

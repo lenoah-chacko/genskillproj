@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 
-const NewNote= ({Value,setNotes,Notes,addTags,setAddTags}) => {
+const NewNote= ({user,Value,setNotes,Notes,addTags,setAddTags}) => {
 	let history = useHistory();
 
 	const [showTitleWarning, setShowTitleWarning] = useState(false);
@@ -26,11 +26,11 @@ const NewNote= ({Value,setNotes,Notes,addTags,setAddTags}) => {
 
 	useEffect(()=>{
 		console.log('changing')
-		setValueTitle(Value.Title);
-		setValueDescription(Value.Description);
-		// console.log(Value.Tags);
+		setValueTitle(Value.title);
+		setValueDescription(Value.description);
+		// console.log(Value.hashtags);
 		let str=''
-		str=arrtocsv(Value.Tags);
+		str=arrtocsv(Value.hashtags);
 		// console.log(str);
 		setValueHashTag(str);
 	},[])
@@ -62,6 +62,9 @@ const NewNote= ({Value,setNotes,Notes,addTags,setAddTags}) => {
 			return arr2
 	}
 	function onClick(event){
+
+		var data=changeNote();
+		console.log('changing chekcing', data)
 		event.preventDefault()
 		var arr;
 		if(valueHashTag!=='')
@@ -79,14 +82,14 @@ const NewNote= ({Value,setNotes,Notes,addTags,setAddTags}) => {
 		else{
 			console.log(arr);
 			let NotesNew=Notes
-			console.log(Value.id-1)
+			console.log(Value.notesid-1)
 			for(let i=0;i<Notes.length;i++)
 			{
-				if(NotesNew[i].id==Value.id)
+				if(NotesNew[i].notesid==Value.notesid)
 				{
-					NotesNew[i].Title=valueTitle;
-					NotesNew[i].Tags=arr;
-					NotesNew[i].Description=valueDescription;
+					NotesNew[i].title=valueTitle;
+					NotesNew[i].hashtags=arr;
+					NotesNew[i].description=valueDescription;
 					console.log(NotesNew);
 					setNotes(NotesNew)
 					break;
@@ -125,6 +128,23 @@ const NewNote= ({Value,setNotes,Notes,addTags,setAddTags}) => {
 		}
 
 }
+
+	async function changeNote()
+	{
+		console.log('user', user);
+		var request={'id':user,'notesid':Value.notesid,'title':valueTitle, 'description':valueDescription, 'hashtags':valueHashTag}
+		const response = await fetch('/update', {
+			method: 'PUT',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		console.log(data);
+		return data;
+	}
+
 	function onClear(event){
 		setValueTitle('')
 		setValueHashTag('')

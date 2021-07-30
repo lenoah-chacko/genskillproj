@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 
 export default function Search({searchfunc,searchResults,setKeyWord}) {
 
-
 	const searchOnChange=(e)=>
 	{
 		setKeyWord(e.target.value);
@@ -28,12 +27,14 @@ export default function Search({searchfunc,searchResults,setKeyWord}) {
 
                             <h2 className="text-center">Search results</h2>
 
-                            {searchResults.map(note=>(
-								<Link to={'/note/'+note.id} style={{ textDecoration: 'none' }}>
-									<NoteView Title={note.Title} DateCreated={note.DateCreated}>
+                            {searchResults.length>0?
+								searchResults.map(note=>(
+								<Link to={'/note/'+note.notesid} style={{ textDecoration: 'none' }}>
+									<NoteView Title={note.title} DateCreated={note.date}>
 									</NoteView>
 								</Link>
-							))}
+							))
+							:<h4 className="mt-5 text-center text-white">Cannot find any notes with that keyword</h4>}
 
                     </div>
                 </div>

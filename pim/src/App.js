@@ -11,7 +11,7 @@ import LoggedInWrapper from './components/LoggedInWrapper';
 function App() {
 	const history=useHistory();
 
-		
+
 	//keyword passed to parent(home and search) through that search function defined in app.js
     //search_function searches titles and matches substrings and does islower to match case.
     //makes state in app.js for result array
@@ -19,8 +19,7 @@ function App() {
 
 
 	const[user,tweakUser] = useState(localStorage.getItem('userID'))
-	
-
+	const[name, setName] = useState('');
 
 
 
@@ -28,16 +27,16 @@ function App() {
   return (
     <div className={App}>
     <Router>
-      <Navbar user={user} tweakUser={tweakUser}></Navbar>
+      <Navbar user={user} name={name} tweakUser={tweakUser}></Navbar>
 	<Switch>
     <Route path='/login'render ={(props)=>(
 		<>
-		<Login user={user} tweakUser={tweakUser}></Login>
+		<Login user={user} setName={setName} tweakUser={tweakUser}></Login>
 		</>
 	)}/>
     <Route path='/register'render ={(props)=>(
 		<>
-		<Register user={user} Notes={Register}></Register>
+		<Register setName={setName} tweakUser={tweakUser} user={user} Notes={Register}></Register>
 		</>
 	)}/>
     <Route path='/' render ={(props)=>(

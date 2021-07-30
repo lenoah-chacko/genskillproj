@@ -17,38 +17,82 @@ export default function LoggedInWrapper({user,checkLoggedIn}) {
 	const[Notes,setNotes] = useState([])
 	const[Tags,setTags]= useState([])
 
+
+	const csvtoarr=(tag)=>{
+		var arr2=tag.split(',')
+			arr2=arr2.map(word=>word.trim())
+			return arr2
+	}
+
+	const[empty,setEmpty]=useState('')
+
+	async function getNotes()
+	{
+		console.log('user', user);
+		var request={'id':user}
+		const response = await fetch('/getallnotes', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		let data = await response.json();
+		if(data.length==0)
+		{
+			setEmpty('You have no Notes')
+		}
+		data.forEach((note, i) => {
+			var arr=csvtoarr(note.hashtags);
+			note.hashtags=arr;
+		});
+		console.log(data);
+
+
+		if(data.length>0)
+		{
+			setNotes(data);
+
+		}
+		console.log(data);
+		return data;
+	}
+
+	async function getTags()
+	{
+		console.log('user', user);
+		var request={'id':user}
+		const response = await fetch('/hashtags', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+
+		let data = await response.json();
+		console.log('getting tags' , data);
+		setTags(data);
+	}
+
+
 	useEffect(()=>{
 
-		setNotes([{id:1,Title:"Calling my Wife", DateCreated:"01/12/2018",Tags:["Math"],Description:"desc1"},
-	    {id:2,Title:"Calling my Girlfriend", DateCreated: "12/04/2019",Tags:["Chemistry"],Description:"desc2"},
-	    {id:3,Title:"Calling my Ex Wife", DateCreated: "18/06/2019",Tags:["Math"],Description:"desc3"},
-	    {id:4,Title:"Calling my Ex Girlfriend", DateCreated: "18/06/2020",Tags:["Math"],Description:"desc4"},
-	    {id:5,Title:"Calling my Homie", DateCreated: "23/06/2020",Tags:["Friend"],Description:"desc5"},
-	    {id:6,Title:"Calling my Husband", DateCreated: "26/06/2020",Tags:["Math"],Description:"desc6"}]
-		)
+		getNotes();
+		getTags();
 
-		setTags([
-			{id:1, name:"Math"},
-			{id:2, name:"Family"},
-			{id:3, name:"Chemistry"},
-			{id:4, name:"Friend"},
-			{id:5, name:"Prize"},
-			{id:6, name:"Tragedy"},
-			{id:7, name:"Birthday"},
-			{id:8, name:"Deep thoughts"}]
-		)
 
 	},[])
 
     const[results,setResults] = useState([])
     const[keyWord, setKeyWord]= useState('')
-    
+
     let ans=[];
     const search = ()=>{
     var kw=keyWord.toLowerCase();
     for(let i=0;i<Notes.length;i++)
     {
-        var note=Notes[i].Title.toLowerCase();
+        var note=Notes[i].title.toLowerCase();
         console.log(note,kw);
         if(note.includes(kw))
         {
@@ -89,7 +133,7 @@ export default function LoggedInWrapper({user,checkLoggedIn}) {
 	const findTagNotes=()=>{
 		for(let i=0;i<Notes.length;i++)
 		{
-			let ntags=Notes[i].Tags;
+			let ntags=Notes[i].hashtags;
 
 			for(let j=0;j<ntags.length;j++)
 			{
@@ -107,7 +151,7 @@ export default function LoggedInWrapper({user,checkLoggedIn}) {
         <div>
             <Route path='/home' render={(props)=>(
             <>
-                <Home searchfunc={search} setKeyWord={setKeyWord} Notes={Notes}></Home>
+                <Home empty={empty} searchfunc={search} setKeyWord={setKeyWord} Notes={Notes}></Home>
             </>
             )}/>
             <Route path='/tags/:id' render={(props)=>(
@@ -116,12 +160,12 @@ export default function LoggedInWrapper({user,checkLoggedIn}) {
 			</>)}/>
             <Route path='/edit' render={(props)=>(
 			<>
-			<EditNote Value={editValue} Notes={Notes} setNotes={setNotes} addTags={Tags} setAddTags={setTags}></EditNote>
+			<EditNote user={user} Value={editValue} Notes={Notes} setNotes={setNotes} addTags={Tags} setAddTags={setTags}></EditNote>
 			</>
 		    )}/>
             <Route path='/tags' exact render={(props)=>(
             <>
-            <AllTags user={user} Tags={Tags} setHashTag={setHashTag} searchfunc={findTagNotes}></AllTags>
+            <AllTags user={user} Tags={Tags} setHashTag={setHashTag} hashTag={hashTag} searchfunc={findTagNotes}></AllTags>
             </>
             )}/>
             <Route path='/add' component={(props)=>(
@@ -131,7 +175,7 @@ export default function LoggedInWrapper({user,checkLoggedIn}) {
             )}/>
             <Route path='/note/:id' render ={(props)=>(
                 <>
-                <Note user={user} Notes={Notes} setNotes={setNotes} editValue={editValue} setEditValue={setEditValue}></Note>
+                <Note setEmpty={setEmpty} user={user} Notes={Notes} setNotes={setNotes} editValue={editValue} setEditValue={setEditValue}></Note>
                 </>
             )}/>
             <Route path='/search' render={(props)=>(

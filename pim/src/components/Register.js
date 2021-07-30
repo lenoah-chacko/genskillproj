@@ -2,7 +2,7 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 
-const Register= ({user}) => {
+const Register= ({setName,user,tweakUser}) => {
 	const history=useHistory();
 	const [showUsernameWarning, setShowUsernameWarning] = useState(false);
 	const [showPassWarning, setShowPassWarning] = useState(false);
@@ -32,13 +32,41 @@ const Register= ({user}) => {
 			history.push('/home')
 	}, [user,history])
 
+
+
+	async function Register() {
+
+		var request={'name':valueUsername,'username':valueEmail,'password':valuePassword}
+		// GET request using fetch with async/await
+		console.log('before fetch',request)
+		const response = await fetch('/register', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		console.log(data)
+		setName(data.name)
+		tweakUser(data.id)
+		history.push('/home')
+	}
+
 	function onClick(event){
+		event.preventDefault()
+		console.log('testing')
 		if(valueEmail===''|| valuePassword==='' || valueUsername==='')
 		{
-			event.preventDefault()
+			console.log('not registering')
 			setShowPassWarning(true)
 			setShowEmailWarning(true)
 			setShowUsernameWarning(true)
+		}
+		else
+		{
+			console.log('registering')
+			Register();
 		}
 	}
 
