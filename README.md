@@ -7,8 +7,8 @@ _Collaborative project by Lenoah Chacko, Joseph Mani and Jesvin Sebastian Madona
 As life moves ahead at a blazing pace, it becomes essential to keep track of information of daily occurances. **PIM Trackr** will assist you by letting you log your daily activities so that you'll never lose track of your daily life again.
 
 **Tech Stack used:**
-Front end: ReactJS with Bootstrap 4
-Back end: Flask(Python) and PostgreSQL
+  1) Front end: ReactJS with Bootstrap 4
+  2) Back end: Flask(Python) and PostgreSQL
 
 **Deployment:**
   1) Front end- Firebase
